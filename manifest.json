@@ -1,0 +1,24 @@
+{
+  "manifest_version": 2,
+  "name": "sqwilter",
+  "description": "filters for sqwiggle",
+  "version": "1.0",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://app.sqwiggle.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+    "tabs",
+    "https://app.sqwiggle.com/*"
+  ],
+  "web_accessible_resources": [
+    "exec.js"
+  ]
+}
