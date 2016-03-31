@@ -10,18 +10,7 @@ Sqwiggle.View.Video.prototype.captureSnapshot = (a) => {
       context = canvas.getContext('2d')
     context.drawImage(video, 0, 0, width, height)
 
-    var idata = Filters.filterImage((pixels) => {
-      var d = pixels.data
-      for (var i = 0; i < d.length; i += 4) {
-        var r = d[i]
-        // var g = d[i + 1]
-        // var b = d[i + 2]
-        // var v = 0.2126 * r + 0.7152 * g + 0.0722 * b
-        // d[i] = d[i + 1] = d[i + 2] = v
-        d[i] = 255
-      }
-      return pixels
-    }, canvas, width, height)
+    var idata = Filters.filterImage(mosaic, canvas, width, height)
     context.putImageData(idata, 0, 0)
 
     var image = canvas.toDataURL('image/webp', 1)
@@ -29,4 +18,43 @@ Sqwiggle.View.Video.prototype.captureSnapshot = (a) => {
       snapshot: image
     })
   }
+}
+
+const mosaic = (idata) => {
+  const pixels = idata.data
+  const width = idata.width
+  const height = idata.height
+  const size = 10
+  const dimension = size * size
+
+  const maxX = size * Math.ceil(width / size)
+  const maxY = size * Math.ceil(height / size)
+  for (let oy = 0; oy < maxY; oy += size) {
+    for (let ox = 0; ox < maxX; ox += size) {
+      let sr = 0
+      let sg = 0
+      let sb = 0
+      for (let y = oy; y < oy + size; y++) {
+        for (let x = ox; x < ox + size; x++) {
+          const i = (width * y + x) * 4
+          sr += pixels[i]
+          sg += pixels[i + 1]
+          sb += pixels[i + 2]
+        }
+      }
+      const r = sr / dimension >> 0
+      const g = sg / dimension >> 0
+      const b = sb / dimension >> 0
+      for (let y = oy; y < oy + size; y++) {
+        for (let x = ox; x < ox + size; x++) {
+          const i = (width * y + x) * 4
+          pixels[i] = r
+          pixels[i + 1] = g
+          pixels[i + 2] = b
+        }
+      }
+    }
+  }
+
+  return idata
 }
