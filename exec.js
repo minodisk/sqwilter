@@ -1,23 +1,92 @@
 'use strict'
 
-Sqwiggle.View.Video.prototype.captureSnapshot = (a) => {
-  var width = 640,
-    height = 480,
-    video = this.$('video.active')[0]
-  if (a === !0 && this.$('.camera-flash').show().fadeOut(400),
-    video && video.videoWidth && video.videoHeight) {
-    var canvas = Filters.getCanvas(width, height),
-      context = canvas.getContext('2d')
-    context.drawImage(video, 0, 0, width, height)
+// Add UI for selecting filter
+// ;(() => {
+//   document.addEventListener('DOMContentLoadedl', () => {
+//     const div = document.createElement('div')
+//     const select = document.createElement('select')
+//     div.appendChild(select)
+//     const form = document.querySelector('#preferences form')
+//     console.log(form)
+//     form.appendChild(div)
+//   }, false)
+// })()
 
-    var idata = Filters.filterImage(mosaic, canvas, width, height)
-    context.putImageData(idata, 0, 0)
+;(() => {
+  const model = Sqwiggle.cache
+  if (model.get('source-aspect') == null) {model.set('source-aspect', 'cropped')}
+  if (model.get('source-filter') == null) {model.set('source-filter', 'none')}
+})()
 
-    var image = canvas.toDataURL('image/webp', 1)
-    Sqwiggle.cache.save({
-      snapshot: image
-    })
+;(() => {
+  const Av = Sqwiggle.View.Av.prototype
+  const onRender = Av.onRender
+  Av.onRender = (self) => {
+    const $label1 = $('<label for="user-aspect">Aspect</label>')
+    const $select1 = $('<select id="user-aspect">')
+      .append($('<option value="cropped">Cropped</option>'))
+      .append($('<option value="raw">Raw</option>'))
+      .on('change', (e) => {
+        var id = $(e.target).val()
+        self.model.set({'source-aspect': id})
+      })
+    const $label2 = $('<label for="user-filter">Filter</label>')
+    const $select2 = $('<select id="user-filter">')
+      .append($('<option value="none">None</option>'))
+      .append($('<option value="mosaic">Mozaic</option>'))
+      .on('change', (e) => {
+        var id = $(e.target).val()
+        self.model.set({'source-filter': id})
+      })
+    self.$el.find('#user-camera').after($label1, $select1, $label2, $select2)
+    self.$('#user-aspect').val(self.model.get('source-aspect'))
+    self.$('#user-filter').val(self.model.get('source-filter'))
+    onRender.call(self)
   }
+})()
+
+Sqwiggle.View.Video.prototype.captureSnapshot = (flash) => {
+  if (flash === true) {
+    this.$('.camera-flash').show().fadeOut(400)
+  }
+
+  // must have video first
+  const video = this.$('video.active')[0]
+  if (!(video && video.videoWidth && video.videoHeight)) return
+
+  const model = Sqwiggle.cache
+  const aspect = model.get('source-aspect')
+  const width = 640
+  const height = 480
+
+  const canvas = Filters.getCanvas(width, height)
+  const ctx = canvas.getContext('2d')
+  if (aspect === 'raw') {
+    const sx = height / video.videoWidth
+    const sy = height / video.videoHeight
+    const s = Math.min(sx, sy)
+    const w = video.videoWidth * s
+    const h = video.videoHeight * s
+    ctx.drawImage(video, (width - height) / 2 + (height - w) / 2, (height - h) / 2, w, h)
+  } else {
+    ctx.drawImage(video, 0, 0, width, height)
+  }
+
+  const filter = model.get('source-filter')
+  switch (filter) {
+    case 'none':
+      break
+    case 'raw_aspect':
+      console.log()
+      break
+    default:
+      const idata = Filters.filterImage(filter, canvas, width, height)
+      context.putImageData(idata, 0, 0)
+      break
+  }
+
+  var unfiltered = canvas.toDataURL('image/webp', 1)
+  Sqwiggle.cache.save({'snapshot': unfiltered})
 }
 
 const mosaic = (idata) => {
