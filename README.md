@@ -1,8 +1,13 @@
 # Sqwilter
 
+## Installation
+
+[Sqwilter - Chrome Web Store](https://chrome.google.com/webstore/detail/sqwilter/jbcjlklkgcpnellfgcogampdnlncmlla)
+
 ## Usage
 
-Load this directory with: [Load the extension - Getting Started: Building a Chrome Extension - Google Chrome](https://developer.chrome.com/extensions/getstarted#unpacked)
+1. Open https://app.sqwiggle.com/_settings/av
+1. Select **Aspect** or **Filter**
 
 ## Contribution
 

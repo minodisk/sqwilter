@@ -1,0 +1,19 @@
+{
+  "name": "sqwilter",
+  "version": "0.0.1",
+  "description": "## Usage",
+  "main": "content.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minodisk/sqwilter.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/minodisk/sqwilter/issues"
+  },
+  "homepage": "https://github.com/minodisk/sqwilter#readme"
+}

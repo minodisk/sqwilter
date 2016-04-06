@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "sqwilter",
-  "description": "filters for sqwiggle",
-  "version": "1.0",
+  "name": "Sqwilter",
+  "description": "$(pkg description)",
+  "version": "$(pkg version)",
   "content_scripts": [
     {
       "matches": [
@@ -20,5 +20,10 @@
   ],
   "web_accessible_resources": [
     "exec.js"
-  ]
+  ],
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
 }
