@@ -75,13 +75,11 @@ Sqwiggle.View.Video.prototype.captureSnapshot = (flash) => {
   const filter = model.get('source-filter')
   switch (filter) {
     case 'none':
-      break
     case 'raw_aspect':
-      console.log()
       break
     default:
-      const idata = Filters.filterImage(filter, canvas, width, height)
-      context.putImageData(idata, 0, 0)
+      const idata = Filters.filterImage(filters[filter], canvas, width, height)
+      ctx.putImageData(idata, 0, 0)
       break
   }
 
@@ -126,4 +124,8 @@ const mosaic = (idata) => {
   }
 
   return idata
+}
+
+const filters = {
+  mosaic: mosaic,
 }
