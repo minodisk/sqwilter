@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   "name": "Sqwilter",
-  "description": "$(pkg description)",
-  "version": "$(pkg version)",
+  "description": "$(pkg .description)",
+  "version": "$(pkg .version)",
   "content_scripts": [
     {
       "matches": [
