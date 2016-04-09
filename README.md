@@ -1,13 +1,15 @@
 # Sqwilter
 
+Chrome extension for Sqwiggle. Add options about aspect ratio and filters for captured photo.
+
 ## Installation
 
 [Sqwilter - Chrome Web Store](https://chrome.google.com/webstore/detail/sqwilter/jbcjlklkgcpnellfgcogampdnlncmlla)
 
 ## Usage
 
-1. Open https://app.sqwiggle.com/_settings/av
-1. Select **Aspect** or **Filter**
+1. Open [https://app.sqwiggle.com/_settings/av](https://app.sqwiggle.com/_settings/av).
+1. Select option of **Aspect** and **Filter**.
 
 ## Contribution
 

@@ -1,10 +1,12 @@
 {
   "name": "sqwilter",
   "version": "0.0.2",
-  "description": "## Usage",
+  "description": "Chrome extension for Sqwiggle. Add options about aspect ratio and filters for captured photo.",
   "main": "content.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "./node_modules/gulp/bin/gulp.js",
+    "develop": "./node_modules/gulp/bin/gulp.js develop"
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,9 @@
   "bugs": {
     "url": "https://github.com/minodisk/sqwilter/issues"
   },
-  "homepage": "https://github.com/minodisk/sqwilter#readme"
+  "homepage": "https://github.com/minodisk/sqwilter#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-ejs": "^2.1.1"
+  }
 }
