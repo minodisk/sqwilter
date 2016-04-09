@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "./node_modules/gulp/bin/gulp.js",
-    "develop": "./node_modules/gulp/bin/gulp.js develop"
+    "develop": "./node_modules/gulp/bin/gulp.js develop",
+    "updates": "./node_modules/gulp/bin/gulp.js updates"
   },
   "repository": {
     "type": "git",

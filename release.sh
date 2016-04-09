@@ -1,9 +1,11 @@
 #!/bin/bash
 
-source functions.sh
+set -e
 
 npm run build
-npm version ${1:-"patch"}
+version=$(npm version ${1:-"patch"})
+# git commit -a -m "Bump version to v$version"
+git push
 
 /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome \
   --pack-extension=dist \
@@ -11,7 +13,9 @@ npm version ${1:-"patch"}
 rm -rf dist
 mv dist.crx sqwilter.crx
 
-hub release create -a sqwilter.crx -m "Build: $(pkg .version)" "v$(pkg .version)"
+hub release create -a sqwilter.crx -m "Build: $version" "$version"
+rm -rf sqwilter.crx
+npm run updates
 
-git commit -am "Update update URL v$(pkg .version)"
+git commit -a -m "Update crx URL to $version"
 git push
