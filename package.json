@@ -1,6 +1,6 @@
 {
   "name": "sqwilter",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Chrome extension for Sqwiggle. Add options about aspect ratio and filters for captured photo.",
   "main": "content.js",
   "scripts": {
